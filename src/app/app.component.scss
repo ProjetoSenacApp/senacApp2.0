@@ -117,3 +117,21 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+
+ion-menu-toggle hr {
+  margin    : 0;
+  display   : block;
+  border    : none;
+  border-top: 1px dotted grey;
+}
+
+ion-menu ion-note {
+  font-size: small;
+}
+
+.copyright {
+  padding   : .4rem 0;
+  font-size : small;
+  text-align: center;
+  color     : var(--ion-color-medium-shade);
+}
