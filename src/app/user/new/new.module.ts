@@ -8,13 +8,20 @@ import { NewPageRoutingModule } from './new-routing.module';
 
 import { NewPage } from './new.page';
 
+import { ProfileComponent } from '../../components/profile/profile.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NewPageRoutingModule
+    NewPageRoutingModule,
+    ReactiveFormsModule,
   ],
-  declarations: [NewPage]
+  declarations: [
+    NewPage,
+    ProfileComponent,
+  ]
 })
 export class NewPageModule {}
