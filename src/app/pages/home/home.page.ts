@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageMap } from '@ngx-pwa/local-storage';
+import { Router } from '@angular/router';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +13,8 @@ export class HomePage implements OnInit {
   userData: any;
   constructor(
     private sotorage: StorageMap,
+    public router: Router,
+    public app: AppService,
   ) { }
 
   ngOnInit() {
@@ -21,5 +25,16 @@ export class HomePage implements OnInit {
         console.log(data)
       }
     );
+  }
+
+  ionViewWillEnter() {
+    this.app.isProfile().then(
+      (data) => {
+        if (data) {
+          return true
+        } else {
+          this.router.navigate(['/user/new']);
+        }
+      });
   }
 }

@@ -50,11 +50,7 @@ export class LoginPage implements OnInit {
                 this.userProfile.uid = data.id;
                 this.storage.set('userProfile', JSON.stringify(this.userProfile)).subscribe({
                   next: () => {
-                    this.app.myAlert(
-                      `Olá ${this.userData.displayName}`,
-                      `Você já pode acessar todos os recursos do aplicativo.`
-                    );
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/user/new']);
                   },
                   error: (error) => { console.error(error); }
                 });
