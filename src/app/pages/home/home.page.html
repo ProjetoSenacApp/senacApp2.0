@@ -1,15 +1,19 @@
 <ion-header>
-
   <ion-toolbar>
-
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    
+
     <ion-title>Início</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="ion-padding">
+    <h2>Olá<span *ngIf="userData"> {{ userData.displayName }}</span>!</h2>
+    <h2><span *ngIf="userData"> {{ userData.email }}</span>!</h2>
+    <ion-avatar><img *ngIf="userData" src="{{userData.photoURL}}" alt="">!</ion-avatar>
+
+  </div>
 
 </ion-content>

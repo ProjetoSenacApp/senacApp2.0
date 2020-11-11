@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageMap } from '@ngx-pwa/local-storage';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
+  userData: any;
+  constructor(
+    private sotorage: StorageMap,
+  ) { }
 
   ngOnInit() {
-  }
 
+    this.sotorage.get('userData', { type: 'string' }).subscribe(
+      (data) => {
+        if (data) this.userData = JSON.parse(data);
+        console.log(data)
+      }
+    );
+  }
 }

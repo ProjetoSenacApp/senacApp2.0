@@ -1,37 +1,77 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+import { AngularFireAuthGuard, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
+
+const toLogin = () => redirectUnauthorizedTo(['/user/login']);
+
+const isLogged = () => redirectLoggedInTo(['/']);
+
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
-    path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    path: 'login',
+    loadChildren: () => import('./user/login/login.module').then( m => m.LoginPageModule),
+    // canActivate: [AngularFireAuthGuard],
+    // data: { authGuardPipe: isLogged }
   },
-  
+  {
+    path: 'user/new',
+    loadChildren: () => import('./user/new/new.module').then( m => m.NewPageModule),
+    // canActivate: [AngularFireAuthGuard],
+    // data: { authGuardPipe: toLogin }
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
+    // canActivate: [AngularFireAuthGuard],
+    // data: { authGuardPipe: toLogin }
+  },
   {
     path: 'info',
-    loadChildren: () => import('./pages/info/info.module').then( m => m.InfoPageModule)
+    loadChildren: () => import('./pages/info/info.module').then( m => m.InfoPageModule),
+    // canActivate: [AngularFireAuthGuard],
+    // data: { authGuardPipe: toLogin }
   },
   {
     path: 'contato',
-    loadChildren: () => import('./pages/contato/contato.module').then( m => m.ContatoPageModule)
+    loadChildren: () => import('./pages/contato/contato.module').then( m => m.ContatoPageModule),
+    // canActivate: [AngularFireAuthGuard],
+    // data: { authGuardPipe: toLogin }
   },
   {
     path: 'test01',
-    loadChildren: () => import('./pages/test01/test01.module').then( m => m.Test01PageModule)
+    loadChildren: () => import('./pages/test01/test01.module').then( m => m.Test01PageModule),
+    // canActivate: [AngularFireAuthGuard],
+    // data: { authGuardPipe: toLogin }
   },
   {
     path: 'test02',
-    loadChildren: () => import('./pages/test02/test02.module').then( m => m.Test02PageModule)
+    loadChildren: () => import('./pages/test02/test02.module').then( m => m.Test02PageModule),
+    // canActivate: [AngularFireAuthGuard],
+    // data: { authGuardPipe: toLogin }
   },
   {
-    path: 'e404',
-    loadChildren: () => import('./pages/e404/e404.module').then( m => m.E404PageModule)
+    path: 'logout',
+    loadChildren: () => import('./user/logout/logout.module').then( m => m.LogoutPageModule),
+    // canActivate: [AngularFireAuthGuard],
+    // data: { authGuardPipe: toLogin }
   },
+
+  {
+    path: 'profile',
+    loadChildren: () => import('./user/profile/profile.module').then( m => m.ProfilePageModule),
+    // canActivate: [AngularFireAuthGuard],
+    // data: { authGuardPipe: toLogin }
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./pages/e404/e404.module').then(m => m.E404PageModule)
+  }
 ];
 
 @NgModule({
