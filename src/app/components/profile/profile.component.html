@@ -34,7 +34,8 @@
             <small *ngIf="profileForm.controls.birth.errors.under14years">* Deve ter 14 anos ou mais</small>
           </ion-text>
         </ion-label>
-        <ion-input type="date" id="birth" name="birth" formControlName="birth" placeholder="Exemplo: 27/11/1998"></ion-input>
+        <ion-input type="date" id="birth" name="birth" formControlName="birth" placeholder="Exemplo: 27/11/1998">
+        </ion-input>
       </ion-item>
 
       <ion-item>
@@ -70,7 +71,8 @@
             <small *ngIf="profileForm.controls.homePhone.errors.pattern">* Inválido</small>
           </ion-text>
         </ion-label>
-        <ion-input type="text" id="homePhone" name="homePhone" formControlName="homePhone" placeholder="Exemplo: (21) 2345-6789"></ion-input>
+        <ion-input type="text" id="homePhone" name="homePhone" formControlName="homePhone"
+          placeholder="Exemplo: (21) 2345-6789"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -81,7 +83,8 @@
             <small *ngIf="profileForm.controls.cellPhone.errors.pattern">* Inválido</small>
           </ion-text>
         </ion-label>
-        <ion-input type="text" id="cellPhone" name="cellPhone" formControlName="cellPhone" placeholder="Exemplo: (21) 98765-4321"></ion-input>
+        <ion-input type="text" id="cellPhone" name="cellPhone" formControlName="cellPhone"
+          placeholder="Exemplo: (21) 98765-4321"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -93,13 +96,45 @@
           </ion-text>
         </ion-label>
 
-        <ion-input type="text" id="whatsApp" name="whatsApp" formControlName="whatsApp" placeholder="Exemplo: (21) 98765-4321"></ion-input>
+        <ion-input type="text" id="whatsApp" name="whatsApp" formControlName="whatsApp"
+          placeholder="Exemplo: (21) 98765-4321"></ion-input>
 
+      </ion-item>
+      <div>Opções</div>
+      <ion-item>
+        <ion-label for="selectStatic" position="floating" color="primary">
+          Seleção 1:
+          <ion-text color="danger" *ngIf="profileForm.controls.selectStatic.errors">
+            <small *ngIf="profileForm.controls.selectStatic.errors.required">Obrigatório</small>
+          </ion-text>
+        </ion-label>
+        <ion-select cancelText="Cancela" formControlName="selectStatic" interface="action-sheet"
+          aria-placeholder="Selecione" id="selectStatic" name="selectStatic">
+          <ion-select-option value="Opção 1">Opção 1</ion-select-option>
+          <ion-select-option value="Opção 2">Opção 2</ion-select-option>
+          <ion-select-option value="Opção 3">Opção 3</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="select01Data">
+        <ion-label for="selectDynamic" position="floating" color="primary">
+          Seleção 2:
+          <ion-text color="danger" *ngIf="profileForm.controls.selectDynamic.errors">
+            <small *ngIf="profileForm.controls.selectDynamic.errors.required">* Obrigatório</small>
+          </ion-text>
+        </ion-label>
+        <ion-select formControlName="selectDynamic" interface="popover" placeholder="Selecione" id="selectDynamic"
+          name="selectDynamic">
+          <ion-select-option *ngFor="let select of select01Data | async" value="{{ select.option }}">
+            {{ select.option }}
+          </ion-select-option>
+
+        </ion-select>
       </ion-item>
 
     </ion-list>
 
-    <ion-button type="submit" expand="block" class="ion-margin-vertical" [disabled]="profileForm.invalid">Cadastrar perfil
+    <ion-button type="submit" expand="block" class="ion-margin-vertical" [disabled]="profileForm.invalid">Cadastrar
+      perfil
     </ion-button>
 
   </form>
