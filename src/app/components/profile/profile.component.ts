@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/fo
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +20,7 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     public router: Router,
     public fbStore: AngularFirestore,
+    public app: AppService,
 
   ) {
     this.storage.get('userData', { type: 'string' }).subscribe((data) => {
@@ -96,7 +98,17 @@ export class ProfileComponent implements OnInit {
   }
 
   profileSubmit() {
-    console.log('foi')
+    if (this.profileForm.invalid) return false;
+    this.fbStore.collection('users').doc(this.userData.uid).set(this.profileForm.value).then((docRef) => {
+      this.storage.set('userProfile', JSON.stringify(this.profileForm.value)).subscribe(() => {
+        this.app.myAlert(this.userData.displayName, `Seu perfil foi cadastrado com sucesso!`);
+        this.profileForm.reset();
+        this.router.navigate(['/']);
+      });
+    }).catch((error) => {
+      console.error(error);
+      this.app.myAlert(this.userData.displayName, `Ocorreu um erro ao cadastrar seu perfil. Por favor, tente mais tarde.`);
+    });
   }
 
   over14Years(control: AbstractControl) {
