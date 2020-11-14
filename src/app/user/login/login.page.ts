@@ -32,13 +32,14 @@ export class LoginPage implements OnInit {
 
   ngOnInit() { }
 
-  async login() {
+  async login(provider: 'google') {
     this.fbAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((data) => {
       this.userData = {
         uid: data.user.uid,
         displayName: data.user.displayName,
         email: data.user.email,
-        photoURL: data.user.photoURL
+        photoURL: data.user.photoURL,
+        provider: provider
       };
       this.storage.set('userData', JSON.stringify(this.userData)).subscribe({
         next: () => {
